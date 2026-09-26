@@ -7,6 +7,7 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ["id", "name", "email", "age", "created_at"]
+        read_only_fields = ["id", "created_at"]
 
 
 class TutorSerializer(serializers.ModelSerializer):
@@ -22,9 +23,11 @@ class TutorSerializer(serializers.ModelSerializer):
             "age",
             "created_at",
         ]
+        read_only_fields = ["id", "created_at"]
 
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ["id", "author", "rating", "text", "created_at"]
+        read_only_fields = ["id", "created_at"]
