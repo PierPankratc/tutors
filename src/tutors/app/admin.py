@@ -10,19 +10,26 @@ class ReviewInline(admin.TabularInline):
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ["name", "email", "created_at", "age", "updated_at"]
+    list_display = ["id", "name", "email", "created_at", "age", "updated_at"]
     list_filter = ["name", "email", "created_at", "age", "updated_at"]
     search_fields = ["name", "email"]
     inlines = [
         ReviewInline,
+    ]
+    list_editable = [
+        "name",
+        "email",
+        "age",
     ]
 
 
 @admin.register(Tutor)
 class TutorAdmin(admin.ModelAdmin):
     list_display = [
+        "id",
         "name",
         "last_name",
+        "email",
         "is_high_edu",
         "experience",
         "created_at",
@@ -30,15 +37,25 @@ class TutorAdmin(admin.ModelAdmin):
         "updated_at",
     ]
     list_filter = [
+        "id",
         "name",
         "last_name",
+        "email",
         "is_high_edu",
         "experience",
-        "created_at",
         "age",
+        "created_at",
         "updated_at",
     ]
     search_fields = ["name", "last_name", "is_high_edu", "experience", "email"]
     inlines = [
         ReviewInline,
+    ]
+    list_editable = [
+        "name",
+        "last_name",
+        "email",
+        "is_high_edu",
+        "experience",
+        "age",
     ]
