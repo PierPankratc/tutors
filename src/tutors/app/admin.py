@@ -1,3 +1,37 @@
 from django.contrib import admin
 
-# Register your models here.
+from tutors.app.models import Review, Student, Tutor
+
+
+@admin.register(Review)
+class ReviewInline(admin.TabularInline):
+    model = Review
+    extra = 1
+
+
+@admin.register(Student)
+class StudentAdmin(admin.ModelAdmin):
+    list_display = "__all__"
+    list_filter = ["name", "email", "created_at", "age", "updated_at"]
+    search_fields = ["name", "email"]
+    inlines = [
+        ReviewInline,
+    ]
+
+
+@admin.register(Tutor)
+class TutorAdmin(admin.ModelAdmin):
+    list_display = "__all__"
+    list_filter = [
+        "name",
+        "last_name",
+        "is_high_edu",
+        "experience",
+        "created_at",
+        "age",
+        "updated_at",
+    ]
+    search_fields = ["name", "last_name", "is_high_edu", "experience", "email"]
+    inlines = [
+        ReviewInline,
+    ]

@@ -35,4 +35,4 @@ Thumbs.db
 # Тесты
 .coverage
 htmlcov/
-.pytest_cache/
+*_cache/
