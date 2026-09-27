@@ -1,5 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from tutors.app.models import Review, Student, Tutor
 from tutors.app.serializers import ReviewSerializer, StudentSerializer, TutorSerializer
@@ -30,3 +32,9 @@ class ReviewViewSet(viewsets.ModelViewSet):
     permission_classes = [
         IsAuthenticatedOrReadOnly,
     ]
+
+
+@api_view(["GET"])
+def most_popilal(request):
+    result = Tutor.objects.order_by("-")
+    return Response(result)

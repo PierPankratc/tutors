@@ -4,6 +4,11 @@ from django.core.validators import (
     MinValueValidator,
 )
 from django.db import models
+from django.db.models.aggregates import Avg, Count
+from django.dispatch import receiver
+
+    
+
 
 
 class Student(models.Model):
@@ -34,6 +39,8 @@ class Tutor(models.Model):
     email = models.EmailField()
     experience = models.FloatField(validators=[MinValueValidator(1)])
     is_high_edu = models.BooleanField(default=False)
+    rating = models.FloatField(default=0)
+    count_review = models.IntegerField(default=0)
     password = models.CharField(max_length=128, validators=[MinLengthValidator(10)])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -49,7 +56,13 @@ class Tutor(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.name} {self.last_name}"
+        return f"{self.name} {self.last_name}"     
+    
+    def update_rating_and_count(self):
+        result = self.reviews.aggregate(avg=Avg("rating"), count=Count("id"))
+        self.rating = result["avg"] if result["avg"] != 0 else 0
+        self.count_review = result["count"]
+        self.save(update_fields=["rating", "count_review"])
 
 
 class Review(models.Model):
