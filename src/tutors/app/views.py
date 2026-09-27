@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
 from tutors.app.models import Review, Student, Tutor
 from tutors.app.serializers import ReviewSerializer, StudentSerializer, TutorSerializer
 
@@ -19,6 +20,7 @@ class TutorViewSet(viewsets.ModelViewSet):
     permission_classes = [
         IsAuthenticatedOrReadOnly,
     ]
+
     # Написать разные разрешения под функции
 
 
@@ -28,4 +30,3 @@ class ReviewViewSet(viewsets.ModelViewSet):
     permission_classes = [
         IsAuthenticatedOrReadOnly,
     ]
-    # Написать разные разрешения под функции
