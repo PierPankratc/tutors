@@ -6,7 +6,7 @@ from .models import Review, Student, Tutor
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ["id", "name",  'email', "age", "created_at"]
+        fields = ["id", "name", "email", "age", "created_at"]
         read_only_fields = ["id", "created_at"]
 
 

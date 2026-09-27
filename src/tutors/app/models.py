@@ -7,9 +7,6 @@ from django.db import models
 from django.db.models.aggregates import Avg, Count
 from django.dispatch import receiver
 
-    
-
-
 
 class Student(models.Model):
     name = models.CharField(max_length=30)
@@ -56,8 +53,8 @@ class Tutor(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.name} {self.last_name}"     
-    
+        return f"{self.name} {self.last_name}"
+
     def update_rating_and_count(self):
         result = self.reviews.aggregate(avg=Avg("rating"), count=Count("id"))
         self.rating = result["avg"] if result["avg"] != 0 else 0
