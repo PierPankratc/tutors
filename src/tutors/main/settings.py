@@ -40,7 +40,9 @@ INSTALLED_APPS = [
 
     "rest_framework",
     "tutors.app",
-    'django_filters'
+    'django_filters',
+    'djcelery_email',
+    'tutors.account'
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,24 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
+MAILERS = {
+    "default": {
+        "BACKEND": "djcelery_email.backends.CeleryEmailBackend", # Ваш Celery-бэкенд
+        "OPTIONS": {
+            "host": "smtp.gmail.com",
+            "port": 587,
+            "username": "your-email@gmail.com",
+            "password": "your-app-password",
+            "use_tls": True,
+            "timeout": 60,
+        }
+    }
+}
+# Настройки Celery
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
 
 ROOT_URLCONF = "main.urls"
 
