@@ -6,4 +6,5 @@ class AppConfig(AppConfig):
     name = "tutors.app"
 
     def ready(self):
-        import tutors.app.signals
+        import tutors.app.signals  # noqa: F401
+

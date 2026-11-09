@@ -37,12 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "rest_framework",
+    "django_filters",
     "tutors.app",
-    'django_filters',
-    'djcelery_email',
-    'tutors.account'
+    "tutors.account",
 ]
 
 MIDDLEWARE = [
@@ -66,29 +64,17 @@ REST_FRAMEWORK = {
 }
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
-    }
-}
-MAILERS = {
     "default": {
-        "BACKEND": "djcelery_email.backends.CeleryEmailBackend", # Ваш Celery-бэкенд
-        "OPTIONS": {
-            "host": "smtp.gmail.com",
-            "port": 587,
-            "username": "your-email@gmail.com",
-            "password": "your-app-password",
-            "use_tls": True,
-            "timeout": 60,
-        }
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
     }
 }
+
 # Настройки Celery
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
 
 ROOT_URLCONF = "main.urls"
 
@@ -161,8 +147,12 @@ STATIC_URL = "static/"
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
+DEFAULT_FROM_EMAIL = "noreply@tutors.local"
+
 MAILERS = {
     "default": {
         "BACKEND": "django.core.mail.backends.console.EmailBackend",
     },
 }
+
+

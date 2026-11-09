@@ -5,7 +5,6 @@ from django.core.validators import (
 )
 from django.db import models
 from django.db.models.aggregates import Avg, Count
-from django.dispatch import receiver
 
 
 class Student(models.Model):
@@ -57,8 +56,8 @@ class Tutor(models.Model):
 
     def update_rating_and_count(self):
         result = self.reviews.aggregate(avg=Avg("rating"), count=Count("id"))
-        self.rating = result["avg"] if result["avg"] != 0 else 0
-        self.count_review = result["count"]
+        self.rating = result["avg"] if result["avg"] is not None else 0.0
+        self.count_review = result["count"] or 0
         self.save(update_fields=["rating", "count_review"])
 
 

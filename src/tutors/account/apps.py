@@ -2,4 +2,6 @@ from django.apps import AppConfig
 
 
 class AuthConfig(AppConfig):
-    name='account'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "tutors.account"
+
