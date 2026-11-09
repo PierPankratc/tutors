@@ -15,7 +15,8 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.14'
+          python-version: "3.14"
+          allow-prereleases: true
 
       - name: Install Ruff
         run: pip install ruff
@@ -25,4 +26,5 @@ jobs:
 
       - name: Ruff format check
         run: ruff format --check .
+
 

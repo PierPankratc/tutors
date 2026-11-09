@@ -25,4 +25,3 @@ def send_message(self, id, token):
         return f"Email sent to user {id}"
     except Exception as exc:
         raise self.retry(exc=exc, countdown=60) from exc
-

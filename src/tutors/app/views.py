@@ -52,4 +52,3 @@ def most_popilar(request):
     tutors = Tutor.objects.order_by("-rating")[:10]
     serializer = TutorSerializer(tutors, many=True)
     return Response(serializer.data)
-

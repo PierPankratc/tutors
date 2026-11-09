@@ -6,4 +6,3 @@ urlpatterns = [
     path("", include("tutors.app.urls")),
     path("auth/", include("rest_framework.urls")),
 ]
-

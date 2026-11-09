@@ -2,8 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 
 import os
-from pathlib import Path
 import sys
+from pathlib import Path
 
 
 def main():
@@ -26,4 +26,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

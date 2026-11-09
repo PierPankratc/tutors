@@ -20,4 +20,3 @@ class EmailTokenTests(TestCase):
         token.created_at = timezone.now() - timedelta(hours=13)
         token.save(update_fields=["created_at"])
         self.assertFalse(token.is_valid())
-

@@ -7,4 +7,3 @@ from tutors.account.models import EmailToken
 class EmailTokenAdmin(admin.ModelAdmin):
     list_display = ["id", "user", "token", "created_at"]
     readonly_fields = ["token", "created_at"]
-

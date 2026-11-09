@@ -43,4 +43,3 @@ class TutorAppTests(TestCase):
         for url in ["/app/students/", "/app/tutors/", "/app/reviews/", "/top/"]:
             response = self.client.get(url)
             self.assertEqual(response.status_code, 200)
-

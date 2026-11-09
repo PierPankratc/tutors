@@ -15,7 +15,8 @@ def update_tutor_rating(sender, instance, **kwargs):
     cache.delete("tutors_list")
 
 
-@receiver([post_save, post_delete], sender=Tutor, dispatch_uid="invalidate_tutors_cache")
+@receiver(
+    [post_save, post_delete], sender=Tutor, dispatch_uid="invalidate_tutors_cache"
+)
 def invalidate_tutors_cache(sender, instance, **kwargs):
     cache.delete("tutors_list")
-

@@ -12,4 +12,3 @@ urlpatterns = [
     path("app/", include(router.urls)),
     path("top/", most_popilar, name="most_popular"),
 ]
-

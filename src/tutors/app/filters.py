@@ -20,4 +20,3 @@ class TutorFilter(FilterSet):
     class Meta:
         model = Tutor
         fields = []
-
