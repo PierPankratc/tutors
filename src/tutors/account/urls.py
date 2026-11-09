@@ -1,0 +1,12 @@
+from django.urls import path
+
+from tutors.account.views import RegisterView, VerifyEmailView
+
+urlpatterns = [
+    path("register/", RegisterView.as_view(), name="register"),
+    path(
+        "verify-email/<uuid:token>/",
+        VerifyEmailView.as_view(),
+        name="verify_email",
+    ),
+]
