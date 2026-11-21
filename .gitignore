@@ -1,3 +1,13 @@
+# Secrets & Environment (152-FZ strict)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+infra/nginx/certs/*
+!infra/nginx/certs/.gitkeep
+
 # Python
 __pycache__/
 *.py[cod]
@@ -8,31 +18,33 @@ venv/
 .venv/
 env/
 ENV/
+dist/
+build/
+*.egg-info/
 
-# Django
+# Caches & Tests
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+
+# Databases & Dumps
+*.sqlite3
+*.sql
+*.dump
+
+# Logs & OS & IDE
 *.log
-db.sqlite3
-db.sqlite3-journal
-/media/
-/staticfiles/
-/static/
-
-# Переменные окружения
-.env
-.env.local
-.env.*.local
-
-# IDE
+.DS_Store
+Thumbs.db
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Тесты
-.coverage
-htmlcov/
-*_cache/
