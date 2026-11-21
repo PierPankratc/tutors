@@ -73,7 +73,7 @@ async def test_encrypted_pii_stored_as_ciphertext_in_db(db_session: AsyncSession
         price=Decimal("2500.00"),
         experience=7,
         status=TutorProfileStatus.PUBLISHED,
-        contact_encrypted=raw_contact,
+        contact=raw_contact,
     )
     db_session.add(profile)
     await db_session.commit()

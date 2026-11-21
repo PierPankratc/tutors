@@ -1,8 +1,10 @@
 import base64
 import os
-from collections.abc import AsyncGenerator
+from collections.abc import AsyncGenerator, AsyncIterator
 
 import pytest
+from fastapi import FastAPI
+from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 # Тестовые ключи задаются через окружение ДО инициализации Settings
@@ -20,8 +22,12 @@ os.environ.setdefault("S3_BUCKET_DIPLOMAS", "test-private-diplomas")
 os.environ.setdefault("S3_ACCESS_KEY_ID", "test_access_key")
 os.environ.setdefault("S3_SECRET_ACCESS_KEY", "test_secret_key")
 os.environ.setdefault("CORS_ALLOWED_ORIGINS", '["http://localhost:3000"]')
+os.environ.setdefault("COOKIE_SECURE", "false")
+os.environ.setdefault("COOKIE_DOMAIN", "")
 
+from tutors.core.database import get_db_session  # noqa: E402
 from tutors.core.models_registry import Base  # noqa: E402
+from tutors.main import create_app  # noqa: E402
 
 
 @pytest.fixture
@@ -37,3 +43,21 @@ async def db_session() -> AsyncGenerator[AsyncSession]:
         yield session
 
     await engine.dispose()
+
+
+@pytest.fixture
+async def api_app(db_session: AsyncSession) -> AsyncIterator[FastAPI]:
+    app = create_app()
+
+    async def _override_db() -> AsyncGenerator[AsyncSession]:
+        yield db_session
+
+    app.dependency_overrides[get_db_session] = _override_db
+    yield app
+
+
+@pytest.fixture
+async def api_client(api_app: FastAPI) -> AsyncIterator[AsyncClient]:
+    transport = ASGITransport(app=api_app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        yield client

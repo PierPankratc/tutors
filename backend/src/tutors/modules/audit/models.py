@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import BigInteger, DateTime, Index, String, event, func
+from sqlalchemy import BigInteger, DateTime, Index, Integer, String, event, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -23,11 +23,8 @@ class AuditLog(Base):
     )
 
     id: Mapped[int] = mapped_column(
-        BigInteger().with_variant(
-            # В SQLite при unit-тестах BigInteger не автоинкрементируется без варианта INTEGER
-            __import__("sqlalchemy").Integer,
-            "sqlite",
-        ),
+        # В SQLite BigInteger не автоинкрементируется без варианта INTEGER
+        BigInteger().with_variant(Integer, "sqlite"),
         primary_key=True,
         autoincrement=True,
     )

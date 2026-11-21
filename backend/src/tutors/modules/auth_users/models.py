@@ -48,8 +48,10 @@ class User(Base):
     )
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
 
-    # TOTP 2FA секрет зашифрован ключом приложения
-    totp_secret_encrypted: Mapped[str | None] = mapped_column(EncryptedString(), nullable=True)
+    # TOTP 2FA секрет зашифрован ключом приложения (в БД колонка totp_secret_encrypted)
+    totp_secret: Mapped[str | None] = mapped_column(
+        "totp_secret_encrypted", EncryptedString(), nullable=True
+    )
     is_totp_enabled: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
 
     # Согласие на обработку ПДн (ст. 9 152-ФЗ) и отметка обезличивания (ст. 21 152-ФЗ)

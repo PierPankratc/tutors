@@ -96,8 +96,10 @@ class TutorProfile(Base):
         nullable=False,
         index=True,
     )
-    # Прямой контакт шифруется и отдаётся только при подтверждённой заявке (accepted)
-    contact_encrypted: Mapped[str | None] = mapped_column(EncryptedString(), nullable=True)
+    # В БД колонка contact_encrypted; атрибут отдаёт уже расшифрованное значение
+    contact: Mapped[str | None] = mapped_column(
+        "contact_encrypted", EncryptedString(), nullable=True
+    )
 
     # В PostgreSQL 16 — GENERATED ALWAYS AS (...) STORED; в SQLite — Text для unit-тестов
     search_vector: Mapped[str | None] = mapped_column(
@@ -125,7 +127,9 @@ class StudentProfile(Base):
     display_name: Mapped[str] = mapped_column(String(100), nullable=False)
     grade: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
     goals: Mapped[str | None] = mapped_column(Text, nullable=True)
-    contact_encrypted: Mapped[str | None] = mapped_column(EncryptedString(), nullable=True)
+    contact: Mapped[str | None] = mapped_column(
+        "contact_encrypted", EncryptedString(), nullable=True
+    )
 
 
 class ContactRequest(Base):

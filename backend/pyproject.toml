@@ -17,7 +17,6 @@ dependencies = [
     "pyotp>=2.9.0",
     "redis>=5.2.0",
     "aiobotocore>=2.15.0",
-    "slowapi>=0.1.9",
     "python-multipart>=0.0.18",
 ]
 
